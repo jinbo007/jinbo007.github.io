@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>银行核心系统学习平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Side Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+            color: var(--primary);
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            padding: 0 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--bg-hover);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-icon {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Mind Map Container */
+        .mindmap-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .mindmap-center:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: var(--bg-hover);
+            border: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .mindmap-node:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            z-index: 5;
+        }
+
+        .mindmap-node.active {
+            border-color: var(--secondary);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Connection Lines */
+        .mindmap-line {
+            position: absolute;
+            background: var(--border);
+            height: 2px;
+            transform-origin: left center;
+            z-index: 1;
+        }
+
+        /* Learning Cards */
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .learning-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .learning-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        /* Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        .section-content {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .key-points {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .key-points li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-title {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: var(--border);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+            .main {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Navigation -->
+    <aside class="sidebar">
+        <div class="logo">🏦 银行核心系统</div>
+        
+        <div class="nav-section">
+            <div class="nav-title">概览</div>
+            <div class="nav-item active" onclick="showSection('overview')">
+                <span class="nav-icon">📊</span> 系统脑图
+            </div>
+            <div class="nav-item" onclick="showSection('progress')">
+                <span class="nav-icon">📈</span> 学习进度
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-title">核心模块</div>
+            <div class="nav-item" onclick="showSection('deposit')">
+                <span class="nav-icon">💰</span> 存款系统
+            </div>
+            <div class="nav-item" onclick="showSection('loan')">
+                <span class="nav-icon">🏦</span> 贷款系统
+            </div>
+            <div class="nav-item" onclick="showSection('payment')">
+                <span class="nav-icon">💳</span> 支付清算
+            </div>
+            <div class="nav-item" onclick="showSection('account')">
+                <span class="nav-icon">👤</span> 账户管理
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-title">技术架构</div>
+            <div class="nav-item" onclick="showSection('architecture')">
+                <span class="nav-icon">🏗️</span> 系统架构
+            </div>
+            <div class="nav-item" onclick="showSection('database')">
+                <span class="nav-icon">🗄️</span> 数据库设计
+            </div>
+            <div class="nav-item" onclick="showSection('security')">
+                <span class="nav-icon">🔒</span> 安全机制
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-title">日常运维</div>
+            <div class="nav-item" onclick="showSection('support')">
+                <span class="nav-icon">🛠️</span> 日常Support
+            </div>
+            <div class="nav-item" onclick="showSection('troubleshooting')">
+                <span class="nav-icon">🔧</span> 故障排查
+            </div>
+            <div class="nav-item" onclick="showSection('monitoring')">
+                <span class="nav-icon">📊</span> 监控告警
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <h1>🏦 银行核心系统学习平台</h1>
+        <p class="subtitle">交互式学习 · 脑图可视化 · 深入理解</p>
+
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-title">📊 学习进度</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 15%"></div>
+            </div>
+            <div class="progress-stats">
+                <span>已完成: 3/20 模块</span>
+                <span>15%</span>
+            </div>
+        </div>
+
+        <!-- Mind Map -->
+        <div class="mindmap-container" id="mindmap">
+            <div class="mindmap-center" onclick="showDetail('core')">银行核心系统</div>
+            
+            <!-- 第一层节点 -->
+            <div class="mindmap-node" style="top: 20%; left: 15%" onclick="showDetail('deposit')">💰 存款系统</div>
+            <div class="mindmap-node" style="top: 20%; right: 15%" onclick="showDetail('loan')">🏦 贷款系统</div>
+            <div class="mindmap-node" style="top: 50%; left: 10%" onclick="showDetail('payment')">💳 支付清算</div>
+            <div class="mindmap-node" style="top: 50%; right: 10%" onclick="showDetail('account')">👤 账户管理</div>
+            <div class="mindmap-node" style="bottom: 20%; left: 15%" onclick="showDetail('architecture')">🏗️ 系统架构</div>
+            <div class="mindmap-node" style="bottom: 20%; right: 15%" onclick="showDetail('security')">🔒 安全机制</div>
+        </div>
+
+        <!-- Learning Cards -->
+        <h2 style="margin-top: 3rem; margin-bottom: 1rem;">📚 核心学习模块</h2>
+        <div class="learning-grid">
+            <div class="learning-card" onclick="showDetail('deposit')">
+                <div class="card-header">
+                    <span class="card-icon">💰</span>
+                    <span class="card-title">存款系统</span>
+                </div>
+                <p class="card-desc">活期存款、定期存款、存款利率计算、账户管理等核心功能</p>
+                <div class="card-tags">
+                    <span class="tag">活期</span>
+                    <span class="tag">定期</span>
+                    <span class="tag">利息计算</span>
+                </div>
+            </div>
+
+            <div class="learning-card" onclick="showDetail('loan')">
+                <div class="card-header">
+                    <span class="card-icon">🏦</span>
+                    <span class="card-title">贷款系统</span>
+                </div>
+                <p class="card-desc">贷款申请、审批流程、还款计划、风险管理等功能</p>
+                <div class="card-tags">
+                    <span class="tag">贷款审批</span>
+                    <span class="tag">还款计划</span>
+                    <span class="tag">风控</span>
+                </div>
+            </div>
+
+            <div class="learning-card" onclick="showDetail('payment')">
+                <div class="card-header">
+                    <span class="card-icon">💳</span>
+                    <span class="card-title">支付清算</span>
+                </div>
+                <p class="card-desc">跨行转账、实时清算、对账机制、异常处理等</p>
+                <div class="card-tags">
+                    <span class="tag">转账</span>
+                    <span class="tag">清算</span>
+                    <span class="tag">对账</span>
+                </div>
+            </div>
+
+            <div class="learning-card" onclick="showDetail('account')">
+                <div class="card-header">
+                    <span class="card-icon">👤</span>
+                    <span class="card-title">账户管理</span>
+                </div>
+                <p class="card-desc">账户开立、变更、冻结、销户等全生命周期管理</p>
+                <div class="card-tags">
+                    <span class="tag">开户</span>
+                    <span class="tag">KYC</span>
+                    <span class="tag">冻结</span>
+                </div>
+            </div>
+
+            <div class="learning-card" onclick="showDetail('support')">
+                <div class="card-header">
+                    <span class="card-icon">🛠️</span>
+                    <span class="card-title">日常Support</span>
+                </div>
+                <p class="card-desc">常见问题处理、运维操作、故障排查等日常工作</p>
+                <div class="card-tags">
+                    <span class="tag">运维</span>
+                    <span class="tag">故障处理</span>
+                    <span class="tag">监控</span>
+                </div>
+            </div>
+
+            <div class="learning-card" onclick="showDetail('architecture')">
+                <div class="card-header">
+                    <span class="card-icon">🏗️</span>
+                    <span class="card-title">系统架构</span>
+                </div>
+                <p class="card-desc">分布式架构、高可用设计、容灾备份等技术架构</p>
+                <div class="card-tags">
+                    <span class="tag">分布式</span>
+                    <span class="tag">高可用</span>
+                    <span class="tag">容灾</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">详情</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // 学习内容数据
+        const learningData = {
+            core: {
+                title: '🏦 银行核心系统概览',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">系统定义</h3>
+                        <p class="section-content">银行核心系统（Core Banking System）是银行信息化的基础平台，负责处理银行的存款、贷款、支付等核心业务。</p>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">核心特性</h3>
+                        <ul class="key-points">
+                            <li>高可用性：7×24小时不间断服务</li>
+                            <li>高安全性：多重加密和访问控制</li>
+                            <li>高并发：支持海量交易处理</li>
+                            <li>一致性：ACID事务保证数据一致性</li>
+                            <li>可扩展：支持业务快速扩展</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">主要模块</h3>
+                        <ul class="key-points">
+                            <li>存款系统（Deposit）</li>
+                            <li>贷款系统（Loan）</li>
+                            <li>支付清算（Payment & Clearing）</li>
+                            <li>账户管理（Account Management）</li>
+                            <li>总账系统（General Ledger）</li>
+                            <li>客户信息（Customer Information）</li>
+                        </ul>
+                    </div>
+                `
+            },
+            deposit: {
+                title: '💰 存款系统',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">系统概述</h3>
+                        <p class="section-content">存款系统是银行最基础的业务系统，负责管理客户的存款账户和利息计算。</p>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">核心功能</h3>
+                        <ul class="key-points">
+                            <li>活期存款：支持随时存取，按日计息</li>
+                            <li>定期存款：固定期限，固定利率</li>
+                            <li>大额存单：大额资金，较高利率</li>
+                            <li>利息计算：支持多种计息方式</li>
+                            <li>账户管理：开户、销户、冻结等</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">利息计算方式</h3>
+                        <ul class="key-points">
+                            <li>按日计息：每日计算利息，季度结息</li>
+                            <li>按月计息：每月计算利息</li>
+                            <li>到期一次性还本付息</li>
+                            <li>复利计算：利息计入本金再计息</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">常见Support场景</h3>
+                        <ul class="key-points">
+                            <li>利息计算错误排查</li>
+                            <li>账户余额不符处理</li>
+                            <li>存单到期自动转存问题</li>
+                            <li>利率调整影响分析</li>
+                        </ul>
+                    </div>
+                `
+            },
+            loan: {
+                title: '🏦 贷款系统',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">系统概述</h3>
+                        <p class="section-content">贷款系统管理银行的资产业务，包括贷款发放、还款、风险管理等。</p>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">贷款类型</h3>
+                        <ul class="key-points">
+                            <li>个人贷款：房贷、车贷、消费贷</li>
+                            <li>企业贷款：经营贷、项目贷</li>
+                            <li>信用贷款：无抵押贷款</li>
+                            <li>抵押贷款：有抵押物担保</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">还款方式</h3>
+                        <ul class="key-points">
+                            <li>等额本息：每月还款额相同</li>
+                            <li>等额本金：每月本金相同</li>
+                            <li>先息后本：先还利息后还本金</li>
+                            <li>随借随还：按实际使用天数计息</li>
+                        </ul>
+                    </div>
+                `
+            },
+            payment: {
+                title: '💳 支付清算系统',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">系统概述</h3>
+                        <p class="section-content">支付清算系统负责银行间资金转移和结算。</p>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">主要功能</h3>
+                        <ul class="key-points">
+                            <li>行内转账：本行账户间转账</li>
+                            <li>跨行转账：不同银行间转账</li>
+                            <li>实时清算：实时到账</li>
+                            <li>批量清算：定时批量处理</li>
+                            <li>对账：核对交易明细</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">清算渠道</h3>
+                        <ul class="key-points">
+                            <li>CNAPS：中国现代化支付系统</li>
+                            <li>大额实时支付系统（HVPS）</li>
+                            <li>小额批量支付系统（BEPS）</li>
+                            <li>网上支付跨行清算系统（IBPS）</li>
+                        </ul>
+                    </div>
+                `
+            },
+            account: {
+                title: '👤 账户管理系统',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">账户类型</h3>
+                        <ul class="key-points">
+                            <li>个人账户：储蓄账户、结算账户</li>
+                            <li>对公账户：基本户、一般户、专用户</li>
+                            <li>内部账户：银行内部核算账户</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">账户生命周期</h3>
+                        <ul class="key-points">
+                            <li>开户：KYC验证、资料收集</li>
+                            <li>使用：交易、查询</li>
+                            <li>冻结：司法冻结、风险冻结</li>
+                            <li>销户：余额清零、关闭账户</li>
+                        </ul>
+                    </div>
+                `
+            },
+            support: {
+                title: '🛠️ 日常Support工作',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">常见Support场景</h3>
+                        <ul class="key-points">
+                            <li>交易失败：超时、余额不足、限额</li>
+                            <li>账务不平：总分不符、流水缺失</li>
+                            <li>利息错误：计息规则、利率配置</li>
+                            <li>对账异常：流水不匹配、状态不一致</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">故障排查步骤</h3>
+                        <ul class="key-points">
+                            <li>1. 确认问题：收集错误信息、时间、账号</li>
+                            <li>2. 查看日志：应用日志、数据库日志</li>
+                            <li>3. 分析原因：代码逻辑、配置、数据</li>
+                            <li>4. 解决问题：修复、补账、配置调整</li>
+                            <li>5. 验证结果：确认问题已解决</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">常用SQL查询</h3>
+                        <p class="section-content" style="font-family: monospace; background: var(--bg); padding: 1rem; border-radius: 8px;">
+-- 查询账户余额<br>
+SELECT * FROM ACCOUNT WHERE ACCT_NO = 'xxx';<br><br>
+-- 查询交易流水<br>
+SELECT * FROM TRANS_LOG WHERE ACCT_NO = 'xxx' AND TRANS_DATE = '20260304';<br><br>
+-- 查询利息明细<br>
+SELECT * FROM INTEREST_DETAIL WHERE ACCT_NO = 'xxx';
+                        </p>
+                    </div>
+                `
+            },
+            architecture: {
+                title: '🏗️ 系统架构',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">架构特点</h3>
+                        <ul class="key-points">
+                            <li>分布式架构：微服务、服务网格</li>
+                            <li>高可用：多活、灾备</li>
+                            <li>高性能：缓存、异步、批量</li>
+                            <li>可扩展：水平扩展、垂直扩展</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3 class="section-title">典型架构</h3>
+                        <ul class="key-points">
+                            <li>接入层：API Gateway、负载均衡</li>
+                            <li>应用层：业务服务、微服务</li>
+                            <li>数据层：数据库、缓存、消息队列</li>
+                            <li>基础设施：容器、监控、日志</li>
+                        </ul>
+                    </div>
+                `
+            },
+            security: {
+                title: '🔒 安全机制',
+                content: `
+                    <div class="section">
+                        <h3 class="section-title">安全措施</h3>
+                        <ul class="key-points">
+                            <li>数据加密：传输加密、存储加密</li>
+                            <li>访问控制：权限管理、审计日志</li>
+                            <li>认证授权：多因素认证、单点登录</li>
+                            <li>安全审计：操作日志、异常检测</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // 显示详情
+        function showDetail(key) {
+            const data = learningData[key];
+            if (!data) return;
+
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalBody').innerHTML = data.content;
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // 点击模态框外部关闭
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 导航切换
+        function showSection(section) {
+            // 更新导航激活状态
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 显示对应内容
+            showDetail(section);
+        }
+    </script>
+</body>
+</html>
