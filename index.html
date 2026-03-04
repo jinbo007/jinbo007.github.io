@@ -30,6 +30,64 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 280px;
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
+            padding: 6rem 2rem 4rem 2rem;
+            z-index: 50;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .side-nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-hover);
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .nav-link-icon {
+            margin-right: 0.5rem;
+        }
+
+        .content {
+            margin-right: 280px;
+            flex: 1;
         }
 
         /* Minimal Navigation */
@@ -321,6 +379,7 @@
     </style>
 </head>
 <body>
+    <!-- Top Navigation -->
     <nav>
         <div class="logo">Jason</div>
         <div class="status">
@@ -329,7 +388,35 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <!-- Side Navigation -->
+    <aside class="side-nav">
+        <div class="side-nav-title">快速导航</div>
+        <a href="#about" class="nav-link active">
+            <span class="nav-link-icon">🏠</span> 关于我
+        </a>
+        <a href="#style" class="nav-link">
+            <span class="nav-link-icon">💬</span> 沟通风格
+        </a>
+        <a href="#interests" class="nav-link">
+            <span class="nav-link-icon">🤖</span> 兴趣领域
+        </a>
+        <a href="#tech" class="nav-link">
+            <span class="nav-link-icon">⚡</span> 技术雷达
+        </a>
+        <a href="#timeline" class="nav-link">
+            <span class="nav-link-icon">🕐</span> 最近动态
+        </a>
+        <a href="#preferences" class="nav-link">
+            <span class="nav-link-icon">⚙️</span> 工作习惯
+        </a>
+        <a href="vibe-news.html" class="nav-link" style="margin-top: 2rem; background: var(--accent); color: white;">
+            <span class="nav-link-icon">🔥</span> Vibe Coding 新闻
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+        <section class="hero" id="about">
         <p class="greeting">// Hello World</p>
         <h1>一个对 AI 和效率<br>有执念的人</h1>
         <p class="intro">
@@ -344,7 +431,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="style">
         <p class="section-label">沟通风格</p>
         <h2>日常表达习惯</h2>
         <div class="style-grid">
@@ -367,7 +454,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="interests">
         <p class="section-label">兴趣领域</p>
         <h2>什么让我兴奋</h2>
         <div class="interests">
@@ -416,7 +503,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="tech">
         <p class="section-label">技术雷达</p>
         <h2>正在关注和使用</h2>
         <div class="radar">
@@ -433,7 +520,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="timeline">
         <p class="section-label">最近动态</p>
         <h2>时间线</h2>
         <div class="timeline">
@@ -456,7 +543,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="preferences">
         <p class="section-label">偏好</p>
         <h2>工作习惯</h2>
         <div class="style-grid">
@@ -478,6 +565,7 @@
             </div>
         </div>
     </section>
+    </div>
 
     <footer>
         <p>由 AI 生成 · 基于 Jason 的真实对话数据</p>
