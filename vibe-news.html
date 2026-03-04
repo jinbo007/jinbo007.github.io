@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason | AI & Vibe Coding News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --bg-card: #141416;
+            --bg-hover: #1a1a1d;
+            --text: #e4e4e7;
+            --text-muted: #71717a;
+            --border: #27272a;
+            --accent: #10b981;
+            --accent-secondary: #06b6d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .card-title a:hover {
+            color: var(--accent);
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← 返回主页</a>
+    
+    <h1>🔥 AI & Vibe Coding 最新动态</h1>
+    <p class="subtitle">更新时间: 2026-03-04 23:34 | 数据来源: GitHub API</p>
+
+    <div class="section">
+        <h2>📦 最新 AI 项目</h2>
+        
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/zeroclaw-labs/zeroclaw" target="_blank">zeroclaw</a>
+            </div>
+            <p class="card-desc">快速、小型、完全自主的 AI 助手基础设施</p>
+            <div class="card-meta">⭐ 22,031</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/indmdev/telegram-summary-bot" target="_blank">telegram-summary-bot</a>
+            </div>
+            <p class="card-desc">AI 驱动的 Telegram 频道/群组管理器和总结器</p>
+            <div class="card-meta">⭐ 1</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/markusheinemann/agentic-sdlc-advanced" target="_blank">agentic-sdlc-advanced</a>
+            </div>
+            <p class="card-desc">MCP 服务器，用于管理 PostgreSQL 数据库中的任务</p>
+            <div class="card-meta">⭐ 0</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🧠 Claude Code 最新动态</h2>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/shrey16/claude-plugins" target="_blank">claude-plugins</a>
+            </div>
+            <p class="card-desc">Claude Code 插件市场 by Shrey Gupta</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:33</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/op7418/CodePilot" target="_blank">CodePilot</a>
+            </div>
+            <p class="card-desc">Claude Code 的桌面 GUI（Electron + Next.js）</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:33</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/shrey16/pm-copilot" target="_blank">pm-copilot</a>
+            </div>
+            <p class="card-desc">自主产品管理 copilot 插件</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:33</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/shaihazher/tappi-browser" target="_blank">tappi-browser</a>
+            </div>
+            <p class="card-desc">最快的 AI 浏览器，零遥测，开源</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:34</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/Gaku52/claude-code-skills" target="_blank">claude-code-skills</a>
+            </div>
+            <p class="card-desc">软件开发生命周期的完整 Skills 体系</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:26</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🌊 Vibe Coding 最新动态</h2>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/EliasXabs/Agent-Orchestrator" target="_blank">Agent-Orchestrator</a>
+            </div>
+            <p class="card-desc">自主 AI 开发系统（Vibe Coding 终极 Boss）</p>
+            <div class="card-meta">
+                <span class="tag">🔥 热门</span>
+                更新时间: 2026-03-04 22:51
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/marcusquinn/aidevops" target="_blank">aidevops</a>
+            </div>
+            <p class="card-desc">AI DevOps 自动化平台，通过 AI 聊天管理基础设施</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:29</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/VeryUbuntu/K12EducationPortal" target="_blank">K12EducationPortal</a>
+            </div>
+            <p class="card-desc">中小学生学习站点（Vibe Coding 出品）</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:32</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/matricphase-dot/vibecoder-" target="_blank">vibecoder-</a>
+            </div>
+            <p class="card-desc">AI 驱动的 vibe coding 平台，多 Agent 编排</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:31</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <a href="https://github.com/NicRaw/trading-signals" target="_blank">trading-signals</a>
+            </div>
+            <p class="card-desc">Vibe Coded 交易信号应用</p>
+            <div class="card-meta">更新时间: 2026-03-04 23:31</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📈 趋势分析</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>关键词</th>
+                    <th>项目数</th>
+                    <th>趋势</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Claude Code</td>
+                    <td>10+</td>
+                    <td>⬆️ 快速增长</td>
+                </tr>
+                <tr>
+                    <td>Vibe Coding</td>
+                    <td>15+</td>
+                    <td>⬆️ 爆发式增长</td>
+                </tr>
+                <tr>
+                    <td>Agent</td>
+                    <td>20+</td>
+                    <td>⬆️ 持续增长</td>
+                </tr>
+                <tr>
+                    <td>MCP</td>
+                    <td>5+</td>
+                    <td>⬆️ 新兴</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🔗 快速链接</h2>
+        <div class="card">
+            <p><a href="https://claude.ai/code" target="_blank">Claude Code 官方</a></p>
+            <p><a href="https://github.com/shrey16/claude-plugins" target="_blank">Claude Code 插件市场</a></p>
+            <p><a href="https://github.com/search?q=vibe+coding" target="_blank">GitHub: Vibe Coding</a></p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; color: var(--text-muted); margin-top: 3rem; font-size: 0.9rem;">
+        <p>🤖 自动生成 by OpenClaw | 📅 生成时间: 2026-03-04 23:34:00</p>
+    </footer>
+</body>
+</html>
